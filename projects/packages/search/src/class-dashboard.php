@@ -11,8 +11,6 @@ use Automattic\Jetpack\Status;
 use Automattic\Jetpack\Tracking;
 use Jetpack;
 use Jetpack_Plan;
-use Automattic\Jetpack\Search\Helper as Jetpack_Search_Helpers;
-
 /**
  * Responsible for adding a search dashboard to wp-admin.
  *
@@ -125,7 +123,7 @@ class Dashboard {
 			'jp-search-dashboard',
 			plugins_url( 'vendor/automattic/jetpack-search/dist/instant-search/jp-search-dashboard-main.min.css', JETPACK__PLUGIN_FILE ),
 			array(),
-			Jetpack_Search_Helpers::get_asset_version( 'vendor/automattic/jetpack-search/dist/instant-search/jp-search-dashboard-main.min.css' )
+			Helper::get_asset_version( 'vendor/automattic/jetpack-search/dist/instant-search/jp-search-dashboard-main.min.css' )
 		);
 	}
 
@@ -149,7 +147,7 @@ class Dashboard {
 			'jp-search-dashboard',
 			plugins_url( 'vendor/automattic/jetpack-search/dist/instant-search/jp-search-dashboard-main.min.js', JETPACK__PLUGIN_FILE ),
 			$script_dependencies,
-			Jetpack_Search_Helpers::get_asset_version( 'vendor/automattic/jetpack-search/dist/instant-search/jp-search-dashboard-main.min.js' ),
+			Helper::get_asset_version( 'vendor/automattic/jetpack-search/dist/instant-search/jp-search-dashboard-main.min.js' ),
 			true
 		);
 

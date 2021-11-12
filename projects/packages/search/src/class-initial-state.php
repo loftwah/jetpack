@@ -8,7 +8,6 @@
 namespace Automattic\Jetpack\Search;
 
 use Automattic\Jetpack\Connection\Manager as Connection_Manager;
-use Automattic\Jetpack\Search\Module_Control;
 use Automattic\Jetpack\Status;
 use Jetpack_Options;
 
