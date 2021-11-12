@@ -7,8 +7,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * WordPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { syncSelect } from '@wordpress/data-controls';
+import { useSelect, useDispatch, select as syncSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies

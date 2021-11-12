@@ -4,8 +4,7 @@
 import React, { Fragment, useCallback } from 'react';
 import { sprintf, __ } from '@wordpress/i18n';
 import { createInterpolateElement } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { syncSelect } from '@wordpress/data-controls';
+import { useDispatch, useSelect, select as syncSelect } from '@wordpress/data';
 import classNames from 'classnames';
 
 /**
@@ -56,27 +55,18 @@ export default function SearchModuleControl() {
 	);
 
 	const supportsOnlyClassicSearch = useSelect(
-		select => select( STORE_ID ).supportsOnlyClassicSearch,
-		[]
+		select => select( STORE_ID ).supportsOnlyClassicSearch
 	);
-	const supportsSearch = useSelect( select => select( STORE_ID ).supportsSearch(), [] );
-	const supportsInstantSearch = useSelect(
-		select => select( STORE_ID ).supportsInstantSearch(),
-		[]
+	const supportsSearch = useSelect( select => select( STORE_ID ).supportsSearch() );
+	const supportsInstantSearch = useSelect( select => select( STORE_ID ).supportsInstantSearch() );
+	const isModuleEnabled = useSelect( select => select( STORE_ID ).isModuleEnabled() );
+	const isInstantSearchEnabled = useSelect( select => select( STORE_ID ).isInstantSearchEnabled() );
+	const isSavingEitherOption = useSelect( select =>
+		select( STORE_ID ).isUpdatingJetpackSettings()
 	);
-	const isModuleEnabled = useSelect( select => select( STORE_ID ).isModuleEnabled(), [] );
-	const isInstantSearchEnabled = useSelect(
-		select => select( STORE_ID ).isInstantSearchEnabled(),
-		[]
-	);
-	const isSavingEitherOption = useSelect(
-		select => select( STORE_ID ).isUpdatingJetpackSettings(),
-		[]
-	);
-	const isTogglingModule = useSelect( select => select( STORE_ID ).isTogglingModule(), [] );
-	const isTogglingInstantSearch = useSelect(
-		select => select( STORE_ID ).isTogglingInstantSearch(),
-		[]
+	const isTogglingModule = useSelect( select => select( STORE_ID ).isTogglingModule() );
+	const isTogglingInstantSearch = useSelect( select =>
+		select( STORE_ID ).isTogglingInstantSearch()
 	);
 	const isInstantSearchCustomizeButtonDisabled =
 		isSavingEitherOption ||
@@ -116,13 +106,6 @@ export default function SearchModuleControl() {
 		updateOptions( newOption, oldOption );
 		analytics.tracks.recordEvent( 'jetpack_search_instant_toggle', newOption );
 	}, [ supportsInstantSearch, isInstantSearchEnabled, isModuleEnabled, updateOptions ] );
-
-	// useEffect( () => {
-	// 	if ( failedToEnableSearch && hasActiveSearchPurchase ) {
-	// 		updateOptions( { has_jetpack_search_product: true } );
-	// 		toggleSearchModule();
-	// 	}
-	// }, [ failedToEnableSearch, hasActiveSearchPurchase, updateOptions, toggleSearchModule ] );
 
 	const renderInstantSearchButtons = () => {
 		return (
