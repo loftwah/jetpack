@@ -9,6 +9,12 @@ import { __ } from '@wordpress/i18n';
  */
 import './style.scss';
 
+/**
+ * Upsell nudge component
+ *
+ * @param {object} props - Props
+ * @returns {React.Component}	- Upsell nudge component.
+ */
 export default function ( props = { upgrade: true } ) {
 	return (
 		<a className="jp-instant-search-upsell-nudge jp-search-dashboard-cut" href={ props.href }>

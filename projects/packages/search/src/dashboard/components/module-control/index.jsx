@@ -4,7 +4,8 @@
 import React, { Fragment, useCallback } from 'react';
 import { sprintf, __ } from '@wordpress/i18n';
 import { createInterpolateElement } from '@wordpress/element';
-import { select, useDispatch, useSelect } from '@wordpress/data';
+import { useDispatch, useSelect } from '@wordpress/data';
+import { syncSelect } from '@wordpress/data-controls';
 import classNames from 'classnames';
 
 /**
@@ -43,12 +44,12 @@ const WIDGETS_EDITOR_URL = 'customize.php?autofocus[panel]=widgets&return=%s';
  */
 export default function SearchModuleControl() {
 	const updateOptions = useDispatch( STORE_ID ).updateJetpackSettings;
-	const siteAdminUrl = select( STORE_ID ).getSiteAdminUrl();
+	const siteAdminUrl = syncSelect( STORE_ID ).getSiteAdminUrl();
 	const returnUrl = encodeURIComponent( siteAdminUrl + RETURN_PATH );
-	const isInstantSearchPromotionActive = select( STORE_ID ).isInstantSearchPromotionActive();
+	const isInstantSearchPromotionActive = syncSelect( STORE_ID ).isInstantSearchPromotionActive();
 
-	const domain = select( STORE_ID ).getCalypsoSlug();
-	const upgradeBillPeriod = select( STORE_ID ).getUpgradeBillPeriod();
+	const domain = syncSelect( STORE_ID ).getCalypsoSlug();
+	const upgradeBillPeriod = syncSelect( STORE_ID ).getUpgradeBillPeriod();
 	const upgradeUrl = getRedirectUrl(
 		upgradeBillPeriod === 'monthly' ? 'jetpack-search-monthly' : 'jetpack-search',
 		{ site: domain }

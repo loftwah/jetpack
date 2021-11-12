@@ -83,6 +83,12 @@ export default class SimpleNotice extends React.Component {
 		return text;
 	};
 
+	onKeyDownCallback = callback => event => {
+		if ( event.which === 13 || event.which === 32 ) {
+			callback && callback( event );
+		}
+	};
+
 	render() {
 		const {
 			children,
@@ -112,7 +118,7 @@ export default class SimpleNotice extends React.Component {
 				{ showDismiss && (
 					<span
 						role="button"
-						// onKeyDown={ onKeyDownCallback( onDismissClick ) }
+						onKeyDown={ this.onKeyDownCallback( onDismissClick ) }
 						tabIndex="0"
 						className="dops-notice__dismiss"
 						onClick={ onDismissClick }

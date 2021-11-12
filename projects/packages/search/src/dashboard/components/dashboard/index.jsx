@@ -7,7 +7,8 @@ import { __ } from '@wordpress/i18n';
 /**
  * WordPress dependencies
  */
-import { useSelect, select, useDispatch } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
+import { syncSelect } from '@wordpress/data-controls';
 
 /**
  * Internal dependencies
@@ -28,7 +29,7 @@ import NoticesList from '../global-notices';
  * @returns {React.Component} Search dashboard component.
  */
 export default function SearchDashboard() {
-	const siteAdminUrl = select( STORE_ID ).getSiteAdminUrl();
+	const siteAdminUrl = syncSelect( STORE_ID ).getSiteAdminUrl();
 	const aboutPageUrl = siteAdminUrl + 'admin.php?page=jetpack_about';
 
 	useSelect( select => select( STORE_ID ).getSearchPlanInfo(), [] );
@@ -46,8 +47,8 @@ export default function SearchDashboard() {
 	const notices = useSelect( select => select( STORE_ID ).getNotices(), [] );
 
 	const initializeAnalytics = () => {
-		const tracksUser = select( STORE_ID ).getWpcomUser();
-		const blogId = select( STORE_ID ).getBlogId();
+		const tracksUser = syncSelect( STORE_ID ).getWpcomUser();
+		const blogId = syncSelect( STORE_ID ).getBlogId();
 
 		if ( tracksUser ) {
 			analytics.initialize( tracksUser.ID, tracksUser.login, {
@@ -57,13 +58,13 @@ export default function SearchDashboard() {
 	};
 
 	useMemo( () => {
-		const apiRootUrl = select( STORE_ID ).getAPIRootUrl();
-		const apiNonce = select( STORE_ID ).getAPINonce();
+		const apiRootUrl = syncSelect( STORE_ID ).getAPIRootUrl();
+		const apiNonce = syncSelect( STORE_ID ).getAPINonce();
 		apiRootUrl && restApi.setApiRoot( apiRootUrl );
 		apiNonce && restApi.setApiNonce( apiNonce );
 		initializeAnalytics();
 		analytics.tracks.recordEvent( 'jetpack_search_admin_page_view', {
-			current_version: select( STORE_ID ).getVersion(),
+			current_version: syncSelect( STORE_ID ).getVersion(),
 		} );
 	}, [] );
 

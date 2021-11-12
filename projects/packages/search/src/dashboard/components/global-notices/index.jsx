@@ -11,12 +11,18 @@ import NoticeAction from 'components/notice/notice-action';
 
 import './style.scss';
 
+/**
+ * NoticesList component
+ *
+ * @param {*} props - Props
+ * @returns {React.Component}	- NoticesList component
+ */
 export default function NoticesList(
 	props = { handleLocalNoticeDismissClick: null, notices: Object.freeze( [] ) }
 ) {
-	let noticesList = props.notices.map( function ( notice, index ) {
-		const onDismissClick = notice => () => {
-			notice && props.handleLocalNoticeDismissClick( notice.id );
+	const noticesList = props.notices.map( function ( notice ) {
+		const onDismissClick = theNotice => () => {
+			theNotice && props.handleLocalNoticeDismissClick( theNotice.id );
 		};
 		return (
 			<SimpleNotice
